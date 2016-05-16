@@ -6,7 +6,7 @@ import com.authority.util.FormMap;
 
 
 /**
- * 实体表
+ * 角色关联权限资源实体表
  */
 @TableSeg(tableName = "ly_role_res", id="roleId")
 public class RoleResFormMap extends FormMap<String,Object>{
