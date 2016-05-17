@@ -19,7 +19,7 @@ import com.authority.annotation.SystemLog;
 import com.authority.controller.index.BaseController;
 import com.authority.entity.ResUserFormMap;
 import com.authority.entity.UserFormMap;
-import com.authority.entity.UserGroupsFormMap;
+import com.authority.entity.UserRolesFormMap;
 import com.authority.exception.SystemException;
 import com.authority.mapper.UserMapper;
 import com.authority.plugin.PageView;
@@ -104,7 +104,7 @@ public class UserController extends BaseController {
 			userMapper.addEntity(userFormMap);//新增后返回新增信息
 			if (!Common.isEmpty(txtGroupsSelect)) {
 				String[] txt = txtGroupsSelect.split(",");
-				UserGroupsFormMap userGroupsFormMap = new UserGroupsFormMap();
+				UserRolesFormMap userGroupsFormMap = new UserRolesFormMap();
 				for (String roleId : txt) {
 					userGroupsFormMap.put("userId", userFormMap.get("id"));
 					userGroupsFormMap.put("roleId", roleId);
@@ -129,7 +129,7 @@ public class UserController extends BaseController {
 	public String deleteEntity() throws Exception {
 		String[] ids = getParaValues("ids");
 		for (String id : ids) {
-			userMapper.deleteByAttribute("userId", id, UserGroupsFormMap.class);
+			userMapper.deleteByAttribute("userId", id, UserRolesFormMap.class);
 			userMapper.deleteByAttribute("userId", id, ResUserFormMap.class);
 			userMapper.deleteByAttribute("id", id, UserFormMap.class);
 		}
@@ -153,11 +153,11 @@ public class UserController extends BaseController {
 		UserFormMap userFormMap = getFormMap(UserFormMap.class);
 		userFormMap.put("txtGroupsSelect", txtGroupsSelect);
 		userMapper.editEntity(userFormMap);
-		userMapper.deleteByAttribute("userId", userFormMap.get("id")+"", UserGroupsFormMap.class);
+		userMapper.deleteByAttribute("userId", userFormMap.get("id")+"", UserRolesFormMap.class);
 		if(!Common.isEmpty(txtGroupsSelect)){
 			String[] txt = txtGroupsSelect.split(",");
 			for (String roleId : txt) {
-				UserGroupsFormMap userGroupsFormMap = new UserGroupsFormMap();
+				UserRolesFormMap userGroupsFormMap = new UserRolesFormMap();
 				userGroupsFormMap.put("userId", userFormMap.get("id"));
 				userGroupsFormMap.put("roleId", roleId);
 				userMapper.addEntity(userGroupsFormMap);

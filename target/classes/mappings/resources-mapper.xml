@@ -21,6 +21,7 @@
 		icon,
 		description
 	</sql>
+	<!-- 节点查询 -->
 	<select id="findChildlists" resultType="com.authority.entity.ResFormMap">
 		SELECT
 		<include refid="selectId" />
@@ -52,12 +53,20 @@
 	<!-- 根据账号Id获取该用户的权限 -->
 	<select id="findUserResourcess" parameterType="String"
 		resultType="com.authority.entity.ResFormMap">
-		SELECT
-		<include refid="selectId" />
+		select <include refid="selectId" />
 		from ly_resources where id in(
-		select resId from ly_res_user
-		where userId=#{userId})
+			select resId from ly_res_user where userId=#{userId}
+		)
 	</select>
+	
+	<!-- 根据角色Id获取该角色的权限 -->
+	<select id="findRoleResorucess" parameterType="Integer" resultType="com.authority.entity.ResFormMap">
+		select <include refid="selectId"> from ly_resources where id in(
+			select resId from ly_role_res where roleId = #{roleId} 
+		)
+	</select>
+	
+	<!-- 排序修改 -->
 	<update id="updateSortOrder" parameterType="java.util.List">
           <foreach collection="list" item="item" index="index" open="" close="" separator=";">
                 update ly_resources

@@ -17,7 +17,7 @@ import com.authority.entity.ButtomFormMap;
 import com.authority.entity.Params;
 import com.authority.entity.ResFormMap;
 import com.authority.entity.ResUserFormMap;
-import com.authority.entity.UserGroupsFormMap;
+import com.authority.entity.UserRolesFormMap;
 import com.authority.mapper.ResourcesMapper;
 import com.authority.util.Common;
 import com.authority.util.TreeObject;
@@ -237,8 +237,8 @@ public class ResourcesController extends BaseController {
 		if (null != u && !Common.isEmpty(u.toString())) {
 			userId = u.toString();
 		} else if(null != g && !Common.isEmpty(g.toString())) {
-			List<UserGroupsFormMap> gs = resourcesMapper.findByAttribute("roleId", g.toString(), UserGroupsFormMap.class);
-			for (UserGroupsFormMap ug : gs) {
+			List<UserRolesFormMap> gs = resourcesMapper.findByAttribute("roleId", g.toString(), UserRolesFormMap.class);
+			for (UserRolesFormMap ug : gs) {
 				userId += ug.get("userId") + ",";
 			}
 		}
