@@ -17,8 +17,10 @@ import com.authority.entity.ButtomFormMap;
 import com.authority.entity.Params;
 import com.authority.entity.ResFormMap;
 import com.authority.entity.ResUserFormMap;
+import com.authority.entity.RoleResFormMap;
 import com.authority.entity.UserRolesFormMap;
 import com.authority.mapper.ResourcesMapper;
+import com.authority.mapper.RoleResMapper;
 import com.authority.util.Common;
 import com.authority.util.TreeObject;
 import com.authority.util.TreeUtil;
@@ -28,10 +30,12 @@ import com.authority.util.TreeUtil;
 public class ResourcesController extends BaseController {
 	@Inject
 	private ResourcesMapper resourcesMapper;//资源
+	@Inject
+	private RoleResMapper roleResMapper;//角色资源
 
 	/**
 	 * @param model
-	 *            存放返回界面的model
+	 * 存放返回界面的model
 	 * @return
 	 */
 	@ResponseBody
@@ -116,6 +120,8 @@ public class ResourcesController extends BaseController {
 	 */
 	@RequestMapping("permissions")
 	public String permissions(Model model) {
+		//判断操作类型type  1.组权限   2.个人权限
+		String type = getPara("type");
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
 		List<ResFormMap> mps = resourcesMapper.findByWhere(resFormMap);
 		List<TreeObject> list = new ArrayList<TreeObject>();
@@ -127,6 +133,7 @@ public class ResourcesController extends BaseController {
 		TreeUtil treeUtil = new TreeUtil();
 		List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
 		model.addAttribute("permissions", ns);
+		model.addAttribute("type", type);
 		return Common.BACKGROUND_PATH + "/system/resources/permissions";
 	}
 	
@@ -217,9 +224,15 @@ public class ResourcesController extends BaseController {
 		return "success";
 	}
 
+	/**
+	 * 权限资源checkbox选中
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("findRes")
 	public List<ResFormMap> findUserRes() {
+		//判断操作类型type  1.组权限   2.个人权限
+		String type = getPara("type");
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
 		List<ResFormMap> rs = resourcesMapper.findRes(resFormMap);
 		return rs;
