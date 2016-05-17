@@ -57,13 +57,14 @@ function editRole() {
 		content : rootPath + '/role/editUI.shtml?id=' + cbox
 	});
 }
+//获取组资源
 function permissions() {
 	var cbox = grid.getSelectedCheckbox();
 	if (cbox.length > 1 || cbox == "") {
 		layer.msg("请选择一个对象！");
 		return;
 	}
-	var url = rootPath + '/resources/permissions.shtml?roleId='+cbox;
+	var url = rootPath + '/resources/permissions.shtml?roleId='+cbox+'&type=1';
 	pageii = layer.open({
 		title : "分配权限",
 		type : 2,
