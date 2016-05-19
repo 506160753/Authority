@@ -39,6 +39,6 @@ public interface ResourcesMapper extends BaseMapper {
 	 * @param roleId
 	 * @return
 	 */
-	public List<ResFormMap> findRoleResorucess(String roleId);
+	public List<ResFormMap> findRoleResorucess(ResFormMap map);
 	
 }

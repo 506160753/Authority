@@ -2,8 +2,11 @@ package com.authority.controller.system;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.authority.annotation.SystemLog;
 import com.authority.controller.index.BaseController;
+import com.authority.entity.ResFormMap;
 import com.authority.entity.ResUserFormMap;
+import com.authority.entity.RoleResFormMap;
 import com.authority.entity.UserFormMap;
 import com.authority.entity.UserRolesFormMap;
 import com.authority.exception.SystemException;
+import com.authority.mapper.ResourcesMapper;
+import com.authority.mapper.RoleResMapper;
 import com.authority.mapper.UserMapper;
 import com.authority.plugin.PageView;
 import com.authority.util.Common;
@@ -33,6 +40,10 @@ import com.authority.util.PasswordHelper;
 public class UserController extends BaseController {
 	@Inject
 	private UserMapper userMapper;
+	@Inject
+	private RoleResMapper roleResMapper;
+	@Inject
+	private ResourcesMapper resourcesMapper;//资源
 	
 	/**
 	 * 分页数据返回UI
@@ -99,18 +110,34 @@ public class UserController extends BaseController {
 			UserFormMap userFormMap = getFormMap(UserFormMap.class);
 			userFormMap.put("txtGroupsSelect", txtGroupsSelect);
 			PasswordHelper passwordHelper = new PasswordHelper();
-			userFormMap.set("password","123456789");
+			userFormMap.set("password","123456");
 			passwordHelper.encryptPassword(userFormMap);
 			userMapper.addEntity(userFormMap);//新增后返回新增信息
 			if (!Common.isEmpty(txtGroupsSelect)) {
 				String[] txt = txtGroupsSelect.split(",");
 				UserRolesFormMap userGroupsFormMap = new UserRolesFormMap();
+				ResFormMap resFormMap = getFormMap(ResFormMap.class);
+				RoleResFormMap roleResFormMap = new RoleResFormMap();
 				for (String roleId : txt) {
 					userGroupsFormMap.put("userId", userFormMap.get("id"));
 					userGroupsFormMap.put("roleId", roleId);
 					userMapper.addEntity(userGroupsFormMap);
 				}
+				roleResFormMap.put("where", " where roleId in ("+txtGroupsSelect+")");
+				//获取所有角色
+				List<RoleResFormMap> rs = roleResMapper.findByWhere(roleResFormMap);
+				HashSet<ResUserFormMap> resUserFormMaps=new HashSet<ResUserFormMap>();
+				for(RoleResFormMap rr :rs){
+					ResUserFormMap resUserFormMap = new ResUserFormMap();
+					resUserFormMap.put("resId", rr.get("resId"));
+					resUserFormMap.put("userId", userFormMap.get("id"));
+					resUserFormMaps.add(resUserFormMap);
+				}
+				List<ResUserFormMap> save = new ArrayList<ResUserFormMap>();
+				save.addAll(resUserFormMaps);
+				resourcesMapper.batchSave(save);
 			}
+			//添加角色权限
 		} catch (Exception e) {
 			 throw new SystemException("添加账号异常");
 		}

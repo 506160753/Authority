@@ -233,8 +233,14 @@ public class ResourcesController extends BaseController {
 	public List<ResFormMap> findUserRes() {
 		//判断操作类型type  1.组权限   2.个人权限
 		String type = getPara("type");
+		List<ResFormMap> rs = new ArrayList<ResFormMap>();
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
-		List<ResFormMap> rs = resourcesMapper.findRes(resFormMap);
+		if("1".equals(type)){
+			rs = resourcesMapper.findRoleResorucess(resFormMap);
+		}
+		if("2".equals(type)){
+			rs = resourcesMapper.findRes(resFormMap);
+		}
 		return rs;
 	}
 	
@@ -244,35 +250,36 @@ public class ResourcesController extends BaseController {
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="用户管理-修改权限")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String addUserRes() throws Exception {
-		String userId = "";
 		String u = getPara("userId");
-		String g = getPara("roleId");
-		if (null != u && !Common.isEmpty(u.toString())) {
-			userId = u.toString();
-		} else if(null != g && !Common.isEmpty(g.toString())) {
-			List<UserRolesFormMap> gs = resourcesMapper.findByAttribute("roleId", g.toString(), UserRolesFormMap.class);
-			for (UserRolesFormMap ug : gs) {
-				userId += ug.get("userId") + ",";
-			}
+		resourcesMapper.deleteByAttribute("userId", u, ResUserFormMap.class);
+		String[] s = getParaValues("resId[]");
+		List<ResUserFormMap> resUserFormMaps = new ArrayList<ResUserFormMap>();
+		for (String rid : s) {
+			ResUserFormMap resUserFormMap = new ResUserFormMap();
+			resUserFormMap.put("resId", rid);
+			resUserFormMap.put("userId", u);
+			resUserFormMaps.add(resUserFormMap);
 		}
-		userId = Common.trimComma(userId);
-		if(Common.isEmpty(userId)){
-			return "分配失败,该角色下没有用户!";
+		resourcesMapper.batchSave(resUserFormMaps);
+		return "success";
+	}
+	
+	@ResponseBody
+	@RequestMapping("addRoleRes")
+	@Transactional(readOnly=false)//需要事务操作必须加入此注解
+	@SystemLog(module="系统管理",methods="角色管理-修改权限")//凡需要处理业务逻辑的.都需要记录操作日志
+	public String addRoleRes() throws Exception {
+		String roleId = getPara("roleId");
+		String[] s = getParaValues("resId[]");
+		List<RoleResFormMap> resRoleFormMaps = new ArrayList<RoleResFormMap>();
+		roleResMapper.deleteByAttribute("roleId", roleId, RoleResFormMap.class);
+		for (String rid : s) {
+			RoleResFormMap roleResFormMap = new RoleResFormMap();
+			roleResFormMap.put("resId", rid);
+			roleResFormMap.put("roleId", roleId);
+			resRoleFormMaps.add(roleResFormMap);
 		}
-		String[] users = userId.split(",");
-		for (String uid : users) {
-			resourcesMapper.deleteByAttribute("userId", uid, ResUserFormMap.class);
-			String[] s = getParaValues("resId[]");
-			List<ResUserFormMap> resUserFormMaps = new ArrayList<ResUserFormMap>();
-			for (String rid : s) {
-				ResUserFormMap resUserFormMap = new ResUserFormMap();
-				resUserFormMap.put("resId", rid);
-				resUserFormMap.put("userId", uid);
-				resUserFormMaps.add(resUserFormMap);
-			
-			}
-			resourcesMapper.batchSave(resUserFormMaps);
-		}
+		roleResMapper.batchSave(resRoleFormMaps);
 		return "success";
 	}
 

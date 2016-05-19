@@ -52,11 +52,13 @@ label[class^="btn btn-default"] {
 			<div class="form-group">
 				<label class="col-sm-3 control-label">密码</label>
 				<div class="col-sm-9" style="color: red;">
-					默认密码为:123456789
+					默认密码为:123456
 				</div>
 			</div>
 			<div class="line line-dashed line-lg pull-in"></div>
+			
 			<div class="form-group" id="selRole" data-url="/role/selRole.shtml"></div>
+			
 			<div class="line line-dashed line-lg pull-in"></div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">是否禁用</label>

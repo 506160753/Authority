@@ -111,11 +111,18 @@ function closeWin(){
 	});
 }
 function sub(){
+		var url;
+		if($("#type").val() == 1){
+			url = 'addRoleRes.shtml';
+		}
+		if($("#type").val() == 2){
+			url = 'addUserRes.shtml';
+		}
 		ly.ajax({
 			async : false, //请勿改成异步，下面有些程序依赖此请数据
 			type : "POST",
 			data : $("#from").serializeJson(),
-			url : rootPath + '/resources/addUserRes.shtml',
+			url : rootPath + '/resources/'+url,
 			dataType : 'json',
 			success : function(json) {
 				if (json == "success") {
@@ -194,7 +201,8 @@ function sub(){
 		type : "POST",
 		data : {
 			"resFormMap.userId" : "${param.userId}",
-			"resFormMap.roleId" : "${param.roleId}"
+			"resFormMap.roleId" : "${param.roleId}",
+			"type" : $("#type").val()
 		},
 		url : rootPath + '/resources/findRes.shtml',
 		dataType : 'json',

@@ -51,8 +51,7 @@
 	</select>
 
 	<!-- 根据账号Id获取该用户的权限 -->
-	<select id="findUserResourcess" parameterType="String"
-		resultType="com.authority.entity.ResFormMap">
+	<select id="findUserResourcess" parameterType="String" resultType="com.authority.entity.ResFormMap">
 		select <include refid="selectId" />
 		from ly_resources where id in(
 			select resId from ly_res_user where userId=#{userId}
@@ -60,8 +59,8 @@
 	</select>
 	
 	<!-- 根据角色Id获取该角色的权限 -->
-	<select id="findRoleResorucess" parameterType="Integer" resultType="com.authority.entity.ResFormMap">
-		select <include refid="selectId"> from ly_resources where id in(
+	<select id="findRoleResorucess" parameterType="String" resultType="com.authority.entity.ResFormMap">
+		select <include refid="selectId" /> from ly_resources where id in(
 			select resId from ly_role_res where roleId = #{roleId} 
 		)
 	</select>

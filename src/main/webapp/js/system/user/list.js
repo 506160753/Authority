@@ -119,7 +119,7 @@ function permissions() {
 		layer.msg("请选择一个对象！");
 		return;
 	}
-	var url = rootPath + '/resources/permissions.shtml?userId='+cbox;
+	var url = rootPath + '/resources/permissions.shtml?userId='+cbox+'&type=2';
 	pageii = layer.open({
 		title : "分配权限",
 		type : 2,
