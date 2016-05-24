@@ -144,7 +144,7 @@ function sub(){
 <input id='userId' name="userId" type="hidden" value="${param.userId}">
 <input id='roleId' name="roleId" type="hidden" value="${param.roleId}">
 <!-- 权限操作类型 -->
-<input id='type' name="type" type="text" value="${type}">
+<input id='type' name="type" type="hidden" value="${type}">
 <table id="mytable" cellspacing="0" summary="The technical specifications of the Apple PowerMac G5 series">
  <tr>
     <th scope="row" abbr="L2 Cache" class="specalt">一级菜单</th>

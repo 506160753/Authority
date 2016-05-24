@@ -57,10 +57,17 @@ public class ResourcesController extends BaseController {
 		return resFormMap;
 	}
 
+	/**
+	 * 新增菜单是获取上级菜单列表
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping("reslists")
 	public List<TreeObject> reslists(Model model) throws Exception {
 		ResFormMap resFormMap = getFormMap(ResFormMap.class);
+		resFormMap.put("where", " where ishide != 1");
 		List<ResFormMap> mps = resourcesMapper.findByWhere(resFormMap);
 		List<TreeObject> list = new ArrayList<TreeObject>();
 		for (ResFormMap map : mps) {

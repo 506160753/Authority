@@ -23,7 +23,14 @@ $(function() {
 			colkey : "locked",
 			name : "账号状态",
 			width : '90px',
-			isSort:true
+			isSort:true,
+			renderData : function(rowindex, data, rowdata, column) {
+				if(data=="0"){
+					return "启用";
+				}else if(data=="1"){
+					return "禁用";
+				}
+			}
 		}, {
 			colkey : "description",
 			name : "描述"
@@ -34,12 +41,7 @@ $(function() {
 			renderData : function(rowindex,data, rowdata, column) {
 				return new Date(data).format("yyyy-MM-dd hh:mm:ss");
 			}
-		}, {
-			name : "操作",
-			renderData : function( rowindex ,data, rowdata, colkeyn) {
-				return "测试渲染函数";
-			}
-		} ],
+		}],
 		//方法
 		jsonUrl : rootPath + '/user/findByPage.shtml',
 		//选择框 头序
@@ -69,7 +71,9 @@ $(function() {
 	$("#permissions").click("click", function() {
 		permissions();
 	});
+	
 });
+
 function editAccount() {
 	//判断选中个数
 	var cbox = grid.getSelectedCheckbox();

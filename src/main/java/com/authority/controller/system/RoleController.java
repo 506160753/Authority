@@ -91,6 +91,7 @@ public class RoleController extends BaseController {
 	public String seletRole(Model model) throws Exception {
 		RoleFormMap roleFormMap = getFormMap(RoleFormMap.class);
 		Object userId = roleFormMap.get("userId");
+		String where = " where state != 1";
 		if(null!=userId){
 			List<RoleFormMap> list = roleMapper.seletUserRole(roleFormMap);
 			String ugid = "";
@@ -101,9 +102,10 @@ public class RoleController extends BaseController {
 			model.addAttribute("txtRoleSelect", ugid);
 			model.addAttribute("userRole", list);
 			if(StringUtils.isNotBlank(ugid)){
-				roleFormMap.put("where", " where id not in ("+ugid+")");
+				where += " and id not in ("+ugid+")";
 			}
 		}
+		roleFormMap.put("where", where);
 		List<RoleFormMap> roles = roleMapper.findByWhere(roleFormMap);
 		model.addAttribute("role", roles);
 		return Common.BACKGROUND_PATH + "/system/user/roleSelect";

@@ -13,8 +13,16 @@ $(function() {
 			name : "角色名"
 		}, {
 			colkey : "state",
-			name : "状态",
+			name : "角色状态",
 			width : "100px",
+			isSort:true,
+			renderData : function(rowindex, data, rowdata, column) {
+				if(data=="0"){
+					return "启用";
+				}else if(data=="1"){
+					return "禁用";
+				}
+			}
 		}, {
 			colkey : "roleKey",
 			name : "roleKey"
@@ -25,12 +33,12 @@ $(function() {
 		jsonUrl : rootPath + '/role/findByPage.shtml',
 		checkbox : true
 	});
-	$("#search").click("click", function() {// 绑定查询按扭
+	/*$("#search").click("click", function() {// 绑定查询按扭
 		var searchParams = $("#searchForm").serializeJson();// 初始化传参数
 		grid.setOptions({
 			data : searchParams
 		});
-	});
+	});*/
 	$("#addRole").click("click", function() {
 		addRole();
 	});

@@ -131,7 +131,6 @@ public class UserController extends BaseController {
 				save.addAll(resUserFormMaps);
 				resourcesMapper.batchSave(save);
 			}
-			//添加角色权限
 		} catch (Exception e) {
 			 throw new SystemException("添加账号异常");
 		}

@@ -55,16 +55,16 @@
 						<button data-toggle="dropdown"
 							class="btn btn-sm btn-default dropdown-toggle">
 							<span class="dropdown-label"><c:if
-									test="${user.locked eq 1}">是</c:if>
-								<c:if test="${user.locked eq 0}">否</c:if></span> <span class="caret"></span>
+									test="${user.locked eq 1}">禁用</c:if>
+								<c:if test="${user.locked eq 0}">启用</c:if></span> <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu dropdown-select">
-							<li class="active"><a href="#"><input type="radio"
+							<li><a href="#"><input type="radio"
 									name="userFormMap.locked" value="1"
-									<c:if test="${user.locked eq 1}"> checked="checked"</c:if>>是</a></li>
-							<li class=""><a href="#"><input type="radio"
+									<c:if test="${user.locked eq 1}"> checked="checked"</c:if>>禁用</a></li>
+							<li><a href="#"><input type="radio"
 									name="userFormMap.locked" value="0"
-									<c:if test="${user.locked eq 0}"> checked="checked"</c:if>>否</a></li>
+									<c:if test="${user.locked eq 0}"> checked="checked"</c:if>>启用</a></li>
 						</ul>
 					</div>
 				</div>

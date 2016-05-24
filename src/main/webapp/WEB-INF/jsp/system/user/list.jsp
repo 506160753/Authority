@@ -12,9 +12,9 @@
 					name="userFormMap.accountName">
 			</div>
 			<a href="javascript:void(0)" class="btn btn-default" id="search">查询</a>
-			<div class="form-group">
+		<!-- 	<div class="form-group">
 				<a href="javascript:grid.exportData('/user/export.shtml')" class="btn btn-info" id="search">导出excel</a>
-			</div>
+			</div> -->
 			
 		</form>
 	</div>

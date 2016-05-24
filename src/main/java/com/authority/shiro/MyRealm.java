@@ -42,18 +42,10 @@ public class MyRealm extends AuthorizingRealm {
 			List<ResFormMap> rs = resourcesMapper.findUserResourcess(userId);
 			// 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-			// 用户的角色集合
-			/*RoleFormMap roleFormMap = new RoleFormMap();
-			roleFormMap.put("userId", userId);
-			List<RoleFormMap> roleList = roleMapper.seletUserRole(roleFormMap);
-			for (RoleFormMap role : roleList) {
-				info.addStringPermission(role.get("roleKey").toString());
-			}*/
-			// 用户的角色对应的所有权限，如果只使用角色定义访问权限
+			// 用户对应的所有权限，如果只使用用户定义访问权限
 			for (ResFormMap resources : rs) {
 				info.addStringPermission(resources.get("resKey").toString());
 			}
-
 			return info;
 		}
 		return null;
@@ -71,12 +63,11 @@ public class MyRealm extends AuthorizingRealm {
 	 */
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String username = (String) token.getPrincipal();
-
 		UserFormMap userFormMap = new UserFormMap();
 		userFormMap.put("accountName", "" + username + "");
 		List<UserFormMap> userFormMaps = userMapper.findByNames(userFormMap);
 		if (userFormMaps.size() != 0) {
-			if ("2".equals(userFormMaps.get(0).get("locked"))) {
+			if ("1".equals(userFormMaps.get(0).get("locked"))) {
 				throw new LockedAccountException(); // 帐号锁定
 			}
 			// 从数据库查询出来的账号名和密码,与用户输入的账号和密码对比

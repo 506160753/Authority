@@ -14,7 +14,16 @@ $(function() {
 		}, {
 			colkey : "type",
 			name : "菜单类型",
-			width : "70px",
+			width : "90px",
+			renderData : function(rowindex, data, rowdata, column) {
+				if(data=="0"){
+					return "目录";
+				}else if(data=="1"){
+					return "菜单";
+				}else if(data=="2"){
+					return "按钮";
+				}
+			}
 		}, {
 			colkey : "resKey",
 			name : "唯一KEY"
@@ -49,13 +58,12 @@ $(function() {
 			pid: "parentId"
 		}
 	});
-	$("#seach").click("click", function() {// 绑定查询按扭
-		alert("da");
+	/*$("#search").click("click", function() {// 绑定查询按扭
 		var searchParams = $("#searchForm").serializeJson();
 		grid.setOptions({
 			data : searchParams
 		});
-	});
+	});*/
 	$("#addFun").click("click", function() {
 		addFun();
 	});
@@ -65,7 +73,9 @@ $(function() {
 	$("#delFun").click("click", function() {
 		delFun();
 	});
+	
 });
+
 function editFun() {
 	var cbox = grid.getSelectedCheckbox();
 	if (cbox.length > 1 || cbox == "") {

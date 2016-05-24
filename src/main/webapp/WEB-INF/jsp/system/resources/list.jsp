@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/system/resources/list.js"></script>
-	<div class="m-b-md">
+<!-- 	<div class="m-b-md">
 		<form class="form-inline" role="form" id="searchForm"
 			name="searchForm">
 			<div class="form-group">
@@ -13,7 +13,7 @@
 			</div>
 			<a href="javascript:void(0)" class="btn btn-default" id="search">查询</a>
 		</form>
-	</div>
+	</div> -->
 	<header class="panel-heading">
 	<div class="doc-buttons">
 		<c:forEach items="${res}" var="key">
