@@ -1,7 +1,6 @@
 package com.authority.mapper.base;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 已经实现民基本的 增,删,改,查接口,不需要重复写

@@ -50,6 +50,7 @@ public class DefaultVFS extends VFS {
     return true;
   }
 
+  @SuppressWarnings("all")
   @Override
   public List<String> list(URL url, String path) throws IOException {
     InputStream is = null;

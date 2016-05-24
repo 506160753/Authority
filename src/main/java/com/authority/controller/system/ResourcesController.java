@@ -18,7 +18,6 @@ import com.authority.entity.Params;
 import com.authority.entity.ResFormMap;
 import com.authority.entity.ResUserFormMap;
 import com.authority.entity.RoleResFormMap;
-import com.authority.entity.UserRolesFormMap;
 import com.authority.mapper.ResourcesMapper;
 import com.authority.mapper.RoleResMapper;
 import com.authority.util.Common;

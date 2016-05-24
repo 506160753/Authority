@@ -6,21 +6,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.authority.annotation.SystemLog;
 import com.authority.controller.index.BaseController;
-import com.authority.entity.ResFormMap;
 import com.authority.entity.ResUserFormMap;
 import com.authority.entity.RoleResFormMap;
 import com.authority.entity.UserFormMap;
@@ -116,7 +111,6 @@ public class UserController extends BaseController {
 			if (!Common.isEmpty(txtGroupsSelect)) {
 				String[] txt = txtGroupsSelect.split(",");
 				UserRolesFormMap userGroupsFormMap = new UserRolesFormMap();
-				ResFormMap resFormMap = getFormMap(ResFormMap.class);
 				RoleResFormMap roleResFormMap = new RoleResFormMap();
 				for (String roleId : txt) {
 					userGroupsFormMap.put("userId", userFormMap.get("id"));

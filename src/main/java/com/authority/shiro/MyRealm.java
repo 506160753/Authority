@@ -1,11 +1,7 @@
 package com.authority.shiro;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.inject.Inject;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -19,12 +15,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-
 import com.authority.entity.ResFormMap;
-import com.authority.entity.RoleFormMap;
 import com.authority.entity.UserFormMap;
 import com.authority.mapper.ResourcesMapper;
-import com.authority.mapper.RoleMapper;
 import com.authority.mapper.UserMapper;
 
 /**
@@ -37,8 +30,6 @@ public class MyRealm extends AuthorizingRealm {
 
 	@Inject
 	private UserMapper userMapper;
-	@Inject
-	private RoleMapper roleMapper;
 
 	/**
 	 * 只询回调有需要验证权限时才会调用, 授权查函数, 进行鉴权但缓存中无用户的授权信息时调用.在配有缓存的情况下，只加载一次.

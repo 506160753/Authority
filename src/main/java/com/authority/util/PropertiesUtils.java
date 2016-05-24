@@ -99,7 +99,6 @@ public class PropertiesUtils {
 			String path = PropertiesUtils.class.getResource("/config.properties").getPath();
 			FileOutputStream outputFile = new FileOutputStream(path);
 			prop.store(outputFile, "modify");
-			Properties prop1 = getProperties();
 			outputFile.close();
 			outputFile.flush(); 
 		} catch (Exception e) {

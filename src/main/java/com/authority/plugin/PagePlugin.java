@@ -131,6 +131,7 @@ public class PagePlugin implements Interceptor {
      * @param page
 	 * @throws SQLException 
      */
+	@SuppressWarnings("all")
     private void setPageParameter(String sql, Connection connection, MappedStatement mappedStatement,
             BoundSql boundSql,Object parameterObject, PageView pageView) throws SQLException {
         // 记录总记录数

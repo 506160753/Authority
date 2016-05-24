@@ -36,6 +36,7 @@ public class UploadUtil
 	 * @return
 	 * @throws IOException
 	 */
+	@SuppressWarnings("all")
 	public void uploadImage1(HttpServletRequest request,MultipartFile file, String getUploadContentType, String getUploadFileName) throws IOException
 	{
 
@@ -62,14 +63,14 @@ public class UploadUtil
 		// 如果上传图片 宽高 比 压缩的要小 则不压缩
 		if (w > yw && h > yh)
 		{
-			FileOutputStream fos = new FileOutputStream(getImagePath + "/" + fileNewName);
+			FileOutputStream fo = new FileOutputStream(getImagePath + "/" + fileNewName);
 
 			FileInputStream fis = (FileInputStream) file.getInputStream();
 			byte[] buffer = new byte[1024];
 			int len = 0;
 			while ((len = fis.read(buffer)) > 0)
 			{
-				fos.write(buffer, 0, len);
+				fo.write(buffer, 0, len);
 			}
 		}
 		else

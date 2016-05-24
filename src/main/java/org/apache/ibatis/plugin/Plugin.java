@@ -305,7 +305,6 @@ public class Plugin implements InvocationHandler {
 			String fvs = "";
 			for (int i = 0; i < formMaps.size(); i++) {
 				Object object = formMaps.get(i);
-				@SuppressWarnings("unchecked")
 				Map<String, Object> froMmap = (Map<String, Object>) object;
 				String[] fe = field.split(",");
 				for (String string : fe) {
@@ -343,7 +342,9 @@ public class Plugin implements InvocationHandler {
 		}
 		return sql;
 	}
-
+	
+	
+	@SuppressWarnings("all")
 	public static void setCount(String sql, Connection connection, BoundSql boundSql, PageView pageView)
 			throws SQLException {
 		PreparedStatement countStmt = null;
