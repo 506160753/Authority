@@ -1,4 +1,6 @@
  package com.authority.util;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Reader;
@@ -60,9 +62,10 @@ public class PropertiesUtils {
 	public static Properties getProperties(){
 		Properties prop = new Properties();
 		try {
-			Reader reader = Resources.getResourceAsReader("/config.properties");
-			prop.load(reader);
-			reader.close();
+			String path = PropertiesUtils.class.getResource("/config.properties").getPath();
+			InputStream in = new BufferedInputStream(new FileInputStream(path));
+			prop.load(in);  
+            in.close(); 
 		} catch (Exception e) {
 			return null;
 		}
@@ -96,9 +99,11 @@ public class PropertiesUtils {
 			String path = PropertiesUtils.class.getResource("/config.properties").getPath();
 			FileOutputStream outputFile = new FileOutputStream(path);
 			prop.store(outputFile, "modify");
+			Properties prop1 = getProperties();
 			outputFile.close();
-			outputFile.flush();
+			outputFile.flush(); 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
