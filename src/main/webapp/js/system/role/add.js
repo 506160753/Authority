@@ -22,9 +22,34 @@
 	 				}
 	 			});
 	 		},
+	 		rules : {
+				"roleFormMap.name" : {
+					required : true
+				},
+				"roleFormMap.roleKey" : {
+					required : true,
+					remote : {
+						type : "POST",
+						url : 'isExist.shtml',
+						data : {
+							roleKey : function() {
+								return $("#roleKey").val();
+							}
+						}
+					}
+				}
+			},
+			messages : {
+				"roleFormMap.name" : {
+					required : "请输入角色名"
+				},
+				"roleFormMap.roleKey" : {
+					required : "请输入角色唯一KEY",
+					remote : "角色唯一KEY已存在"
+				}
+			},
 	 		errorPlacement : function(error, element) {//自定义提示错误位置
 	 			$(".l_err").css('display','block');
-	 			//element.css('border','3px solid #FFCCCC');
 	 			$(".l_err").html(error.html());
 	 		},
 	 		success: function(label) {//验证通过后

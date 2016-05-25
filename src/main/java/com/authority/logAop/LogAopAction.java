@@ -76,6 +76,7 @@ public  class LogAopAction {
 			e1.printStackTrace();
 		}
     }
+    
     /**
      * 前置通知 用于拦截Controller层记录用户的操作
      *

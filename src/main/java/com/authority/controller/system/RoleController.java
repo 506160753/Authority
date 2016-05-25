@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.authority.annotation.SystemLog;
 import com.authority.controller.index.BaseController;
 import com.authority.entity.RoleFormMap;
+import com.authority.entity.UserFormMap;
+import com.authority.exception.SystemException;
 import com.authority.mapper.RoleMapper;
 import com.authority.plugin.PageView;
 import com.authority.util.Common;
@@ -50,8 +52,12 @@ public class RoleController extends BaseController {
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	@SystemLog(module="系统管理",methods="组管理-新增组")//凡需要处理业务逻辑的.都需要记录操作日志
 	public String addEntity() throws Exception {
-		RoleFormMap roleFormMap = getFormMap(RoleFormMap.class);
-		roleMapper.addEntity(roleFormMap);
+		try {
+			RoleFormMap roleFormMap = getFormMap(RoleFormMap.class);
+			roleMapper.addEntity(roleFormMap);
+		} catch (Exception e) {
+			throw new SystemException("添加角色异常");
+		}
 		return "success";
 	}
 
@@ -66,7 +72,13 @@ public class RoleController extends BaseController {
 		}
 		return "success";
 	}
-
+	
+	/**
+	 * 获取修改数据并返回页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("editUI")
 	public String editUI(Model model) throws Exception {
 		String id = getPara("id");
@@ -110,5 +122,21 @@ public class RoleController extends BaseController {
 		model.addAttribute("role", roles);
 		return Common.BACKGROUND_PATH + "/system/user/roleSelect";
 	}
-
+	
+	/**
+	 * 验证角色是否存在
+	 * 
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping("isExist")
+	@ResponseBody
+	public boolean isExist(String roleKey) {
+		RoleFormMap role = roleMapper.findbyFrist("roleKey", roleKey, RoleFormMap.class);
+		if (role == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -185,6 +185,7 @@ public class UserController extends BaseController {
 		}
 		return "success";
 	}
+	
 	/**
 	 * 验证账号是否存在
 	 * 

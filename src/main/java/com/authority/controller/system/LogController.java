@@ -33,7 +33,7 @@ public class LogController extends BaseController {
 		if(Common.isNotEmpty(column)){
 			order = " order by "+column+" "+sort;
 		}else{
-			order = " order by id asc";
+			order = " order by id desc";
 		}
 		logFormMap.put("$orderby", order);
 		logFormMap=toFormMap(logFormMap, pageNow, pageSize,logFormMap.getStr("orderby"));

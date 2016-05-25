@@ -38,7 +38,7 @@
 					<label class="col-sm-3 control-label">roleKey</label>
 					<div class="col-sm-9">
 						<input type="text" class="form-control checkacc"
-							placeholder="请输入roleKey" name="roleFormMap.roleKey" id="roleKey" value=${role.roleKey}>
+							readonly="readonly" name="roleFormMap.roleKey" id="roleKey" value=${role.roleKey}>
 					</div>
 				</div>
 				<div class="line line-dashed line-lg pull-in"></div>
@@ -74,11 +74,5 @@
 		</footer> 
 	</section>
 	</form>
-	<script type='text/javascript'>
-		/* $(function(){
-			$("from input[name='enable'][value='${role.enable}']").attr("checked","checked");
-			alert("input[name='enable'][value='${role.enable}']");
-		}); */
-	</script>
 </body>
 </html>

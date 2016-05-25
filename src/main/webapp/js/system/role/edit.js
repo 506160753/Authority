@@ -16,7 +16,7 @@
 					        	return false;
 	 						});
 	 					} else {
-	 						layer.alert('添加失败！', 3);
+	 						layer.alert('更新成功！', 3);
 	 					}
 	 				}
 	 			});
