@@ -25,7 +25,7 @@ import com.authority.util.SystemInfo;
 public class SpringTaskController {
 	@Inject
 	private ServerInfoMapper serverInfoMapper;
-
+ 
 	public static void main(String[] args) {
 		SpringTaskController action = new SpringTaskController();
 		try {
