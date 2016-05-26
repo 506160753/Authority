@@ -1,10 +1,5 @@
 /**
  * js表格分页工具组件
- *
- * @author lanyuan
- * @date 2015-03-27
- * @Email: mmm333zzz520@163.com
- * @version 3.0v
  */
 ;
 (function() {
@@ -1043,6 +1038,7 @@
 				params.data=data;
 			}
 			$.extend(conf, params);
+			conf.data.pageNow=1;
 			replayData();
 		};
 		/**
